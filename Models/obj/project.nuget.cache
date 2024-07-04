@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dqj6WV+mOyL1n1OFxEJEiwkOQiTtw5B/Cqhvyqc49tVm/tjngKpdLiQ9cRk/H8TH7VYxvpxWrYNDuZ0eduo+ww==",
+  "dgSpecHash": "1+oMFx54bWiV0SzueJeuF3c1BfacpBhD5+KDnikp+aEIgRrqhbR0n4x0YgVTZPgyWBvYNGZREPC45i24tNChAg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\marin\\RiderProjects\\MarinangeliDiego119071AppWeb\\Models\\Models.csproj",
+  "projectFilePath": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\Models\\Models.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marin\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\marin\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

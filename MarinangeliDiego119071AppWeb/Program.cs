@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using WebApp.data;
-using Models;
-using Services;
 
 public class Program
 {
@@ -16,7 +15,8 @@ public class Program
         builder.Services.AddDbContext<AppDb>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        builder.Services.AddScoped<OrderService>();
+        // Registra ProductService come scoped service
+        builder.Services.AddScoped<ProductService>();
 
         builder.Services.AddControllersWithViews();
         builder.Services.AddRazorPages();
