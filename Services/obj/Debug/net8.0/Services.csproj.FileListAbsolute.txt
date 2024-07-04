@@ -17,3 +17,4 @@ C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Services\obj\Debug\net
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Services\obj\Debug\net8.0\ref\Services.dll
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Services\bin\Debug\net8.0\Services.runtimeconfig.json
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Services\obj\Debug\net8.0\Services.genruntimeconfig.cache
+C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Services\obj\Debug\net8.0\Services.sourcelink.json

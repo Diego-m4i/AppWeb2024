@@ -15,3 +15,4 @@ C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Data\obj\Debug\net8.0\
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Data\obj\Debug\net8.0\ref\Data.dll
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Data\bin\Debug\net8.0\Data.runtimeconfig.json
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Data\obj\Debug\net8.0\Data.genruntimeconfig.cache
+C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Data\obj\Debug\net8.0\Data.sourcelink.json

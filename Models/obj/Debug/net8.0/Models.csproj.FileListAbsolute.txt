@@ -11,3 +11,5 @@ C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Models\obj\Debug\net8.
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Models\obj\Debug\net8.0\ref\Models.dll
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Models\bin\Debug\net8.0\Models.runtimeconfig.json
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Models\obj\Debug\net8.0\Models.genruntimeconfig.cache
+C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Models\obj\Debug\net8.0\Models.sourcelink.json
+C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\Models\obj\Debug\net8.0\Models.csproj.AssemblyReference.cache
