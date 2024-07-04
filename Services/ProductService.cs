@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WebApp.data;
+using Models;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -20,10 +19,25 @@ namespace Services
             return await _dbContext.Products.ToListAsync();
         }
 
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await _dbContext.Products.FindAsync(id);
+        }
+
         public async Task AddProductAsync(Product product)
         {
             _dbContext.Products.Add(product);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task DeleteProductAsync(int id)
+        {
+            var product = await _dbContext.Products.FindAsync(id);
+            if (product != null)
+            {
+                _dbContext.Products.Remove(product);
+                await _dbContext.SaveChangesAsync();
+            }
         }
     }
 }

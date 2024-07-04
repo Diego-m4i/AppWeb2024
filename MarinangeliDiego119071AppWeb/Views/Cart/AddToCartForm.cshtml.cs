@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MarinangeliDiego119071AppWeb.Views.Order;
+namespace MarinangeliDiego119071AppWeb.Views.Cart;
 
-public class Details : PageModel
+public class AddToCartForm : PageModel
 {
     public void OnGet()
     {

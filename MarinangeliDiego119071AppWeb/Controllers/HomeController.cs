@@ -8,7 +8,7 @@ using Services;
 using WebApp.ViewModels;
 using System.Collections.Generic;
 
-namespace MarinangeliDiego119071AppWeb.Controllers
+namespace AppWeb.Controllers
 {
     public class HomeController : Controller
     {

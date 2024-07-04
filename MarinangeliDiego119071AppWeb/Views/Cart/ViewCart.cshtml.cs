@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MarinangeliDiego119071AppWeb.Views.Order;
+namespace MarinangeliDiego119071AppWeb.Views.Cart;
 
-public class Index : PageModel
+public class ViewCart : PageModel
 {
     public void OnGet()
     {

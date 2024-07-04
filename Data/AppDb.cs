@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using models;
 using Models;
 
 namespace WebApp.data
@@ -9,9 +8,8 @@ namespace WebApp.data
         public AppDb(DbContextOptions<AppDb> options) : base(options)
         {
         }
-
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
     }
 }

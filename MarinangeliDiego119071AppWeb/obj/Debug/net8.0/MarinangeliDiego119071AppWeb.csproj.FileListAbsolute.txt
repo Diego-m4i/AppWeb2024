@@ -142,6 +142,7 @@ C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071AppWeb\obj\Debug\net8.0\MarinangeliDiego119071AppWeb.sourcelink.json
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\appsettings.json
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\MarinangeliDiego119071AppWeb.staticwebassets.runtime.json
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\MarinangeliDiego119071AppWeb.exe
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\MarinangeliDiego119071AppWeb.deps.json
@@ -284,4 +285,3 @@ C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\n
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\net8.0\MarinangeliDiego119071AppWeb.pdb
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\net8.0\MarinangeliDiego119071AppWeb.genruntimeconfig.cache
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\net8.0\ref\MarinangeliDiego119071AppWeb.dll
-C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\appsettings.json

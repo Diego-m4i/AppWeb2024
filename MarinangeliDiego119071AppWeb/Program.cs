@@ -11,7 +11,7 @@ builder.Services.AddDbContext<AppDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Altri servizi necessari
-builder.Services.AddScoped<OrderService>();
+builder.Services.AddScoped<CartService>();
 builder.Services.AddScoped<ProductService>();
 
 // Configurazione dei servizi
@@ -84,6 +84,11 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+        
+    endpoints.MapControllerRoute(
+        name: "cart",
+        pattern: "Cart/{action=Index}/{id?}",
+        defaults: new { controller = "Cart" });
 });
 
 app.Run();
