@@ -1,5 +1,4 @@
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\appsettings.Development.json
-C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\appsettings.json
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\MarinangeliDiego119071AppWeb.staticwebassets.runtime.json
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\MarinangeliDiego119071AppWeb.exe
 C:\Users\marin\RiderProjects\MarinangeliDiego119071AppWeb\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\MarinangeliDiego119071AppWeb.deps.json

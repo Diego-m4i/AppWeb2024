@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oGqsRj+XaHbcQLCgH5DjcV6mRztVUmyHAQNO42WTu8BPuq4tkPc97R74NN9+NZBa9IlEfWY5TzCQc2ezaxnjZg==",
+  "dgSpecHash": "VE29KapfyBPmQe5IpET1eutHkVXag0cVWrtM8QDprGA7AY9ehVYFVSkRPQ6AK3y5L5zNCIN4einX8tX8aGp2OQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\marin\\RiderProjects\\MarinangeliDiego119071AppWeb\\MarinangeliDiego119071AppWeb\\MarinangeliDiego119071AppWeb.csproj",
   "expectedPackageFiles": [
@@ -25,6 +25,7 @@
     "C:\\Users\\marin\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.0\\microsoft.entityframeworkcore.design.8.0.0.nupkg.sha512",
     "C:\\Users\\marin\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.0\\microsoft.entityframeworkcore.relational.8.0.0.nupkg.sha512",
     "C:\\Users\\marin\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.0\\microsoft.entityframeworkcore.sqlserver.8.0.0.nupkg.sha512",
+    "C:\\Users\\marin\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\8.0.0\\microsoft.entityframeworkcore.tools.8.0.0.nupkg.sha512",
     "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.caching.memory\\8.0.0\\microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
     "C:\\Users\\marin\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",

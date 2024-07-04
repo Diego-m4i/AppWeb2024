@@ -10,7 +10,7 @@ namespace WebApp.data
         public AppDb CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())  // Assicurati di avere Microsoft.Extensions.Configuration.FileExtensions installato
+                .SetBasePath(Directory.GetCurrentDirectory()) 
                 .AddJsonFile("appsettings.json")
                 .Build();
 
