@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MarinangeliDiego119071AppWeb.Models;
-using Services;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using MarinangeliDiego119071AppWeb.Models;
 using Models;
+using Services;
 using WebApp.ViewModels;
+using System.Collections.Generic;
 
 namespace MarinangeliDiego119071AppWeb.Controllers
 {
@@ -20,9 +21,10 @@ namespace MarinangeliDiego119071AppWeb.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var products = await _productService.GetProductsAsync();
+            return View(products);
         }
 
         public IActionResult Privacy()

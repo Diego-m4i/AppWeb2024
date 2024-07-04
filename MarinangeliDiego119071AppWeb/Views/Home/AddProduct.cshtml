@@ -4,36 +4,32 @@
 ViewData["Title"] = "Add Product";
 }
 
-<h1>Add New Product</h1>
+<h2>Add Product</h2>
 
 <form asp-action="AddProduct" method="post">
     <div class="form-group">
-        <label asp-for="Name">Product Name</label>
+        <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-
     <div class="form-group">
-        <label asp-for="Description">Description</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-
     <div class="form-group">
-        <label asp-for="Price">Price</label>
+        <label asp-for="Price"></label>
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
-
     <div class="form-group">
-        <label asp-for="ImageUrl">Image URL</label>
+        <label asp-for="ImageUrl"></label>
         <input asp-for="ImageUrl" class="form-control" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>
-
     <button type="submit" class="btn btn-primary">Add Product</button>
 </form>
 
-@section Scripts {
-<partial name="_ValidationScriptsPartial" />
-}
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

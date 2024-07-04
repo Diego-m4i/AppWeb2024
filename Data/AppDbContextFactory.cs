@@ -2,24 +2,22 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using WebApp.data;
 
-namespace WebApp.data
+public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDb>
 {
-    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDb>
+    public AppDb CreateDbContext(string[] args)
     {
-        public AppDb CreateDbContext(string[] args)
-        {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory()) 
-                .AddJsonFile("appsettings.json")
-                .Build();
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<AppDb>();
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var builder = new DbContextOptionsBuilder<AppDb>();
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-            optionsBuilder.UseSqlServer(connectionString);  // Assicurati di avere Microsoft.EntityFrameworkCore.SqlServer installato
+        builder.UseSqlServer(connectionString);
 
-            return new AppDb(optionsBuilder.Options);
-        }
+        return new AppDb(builder.Options);
     }
 }

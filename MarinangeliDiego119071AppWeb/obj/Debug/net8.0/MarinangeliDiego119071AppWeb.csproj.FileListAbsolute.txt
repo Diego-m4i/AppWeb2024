@@ -284,3 +284,4 @@ C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\n
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\net8.0\MarinangeliDiego119071AppWeb.pdb
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\net8.0\MarinangeliDiego119071AppWeb.genruntimeconfig.cache
 C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\obj\Debug\net8.0\ref\MarinangeliDiego119071AppWeb.dll
+C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb\bin\Debug\net8.0\appsettings.json

@@ -12,7 +12,7 @@ using WebApp.data;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDb))]
-    [Migration("20240704080656_InitialCreate")]
+    [Migration("20240704141548_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -38,6 +38,34 @@ namespace Data.Migrations
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("models.OrderItem", b =>
