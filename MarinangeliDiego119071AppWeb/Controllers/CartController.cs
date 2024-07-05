@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Threading.Tasks;
-using Models;
-using System;
 using WebApp.ViewModels;
+using Models;
 
 public class CartController : Controller
 {
@@ -25,12 +24,12 @@ public class CartController : Controller
             return NotFound();
         }
 
-        return View(new CartViewModel() { Product = product });
+        return View(new AddToCartViewModel { ProductId = productId });
     }
 
     // POST: /Cart/AddToCart
     [HttpPost]
-    public async Task<IActionResult> AddToCart(CartViewModel model)
+    public async Task<IActionResult> AddToCart(AddToCartViewModel model)
     {
         if (!ModelState.IsValid)
         {
@@ -39,8 +38,21 @@ public class CartController : Controller
 
         try
         {
-            // Logica per aggiungere il prodotto al carrello
+            // Supponiamo che l'ID utente venga ottenuto dal contesto di autenticazione, qui hardcoded per semplicità
+            var userId = "test-user-id";
 
+            // Recupera o crea un carrello per l'utente
+            var cart = await _cartService.GetCartByUserIdAsync(userId);
+            if (cart == null)
+            {
+                cart = new Cart { UserId = userId };
+                await _cartService.CreateCartAsync(cart);
+            }
+
+            // Aggiungi il prodotto al carrello
+            await _cartService.AddToCartAsync(cart.Id, model.ProductId, model.Quantity);
+
+            // Reindirizza alla vista del carrello
             return RedirectToAction("ViewCart");
         }
         catch (Exception ex)
@@ -49,7 +61,4 @@ public class CartController : Controller
             return View("AddToCartForm", model);
         }
     }
-
-
-
 }
