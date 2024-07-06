@@ -84,11 +84,10 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
-        
+
     endpoints.MapControllerRoute(
         name: "cart",
-        pattern: "Cart/{action=Index}/{id?}",
-        defaults: new { controller = "Cart" });
+        pattern: "{controller=Cart}/{action=ViewCart}/{id?}");
 });
 
 app.Run();

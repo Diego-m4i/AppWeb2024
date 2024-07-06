@@ -1,64 +1,42 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApp.ViewModels;
-using Models;
 
-public class CartController : Controller
+namespace WebApp.Controllers
 {
-    private readonly CartService _cartService;
-    private readonly ProductService _productService;
-
-    public CartController(CartService cartService, ProductService productService)
+    public class CartController : Controller
     {
-        _cartService = cartService;
-        _productService = productService;
-    }
+        private readonly CartService _cartService;
 
-    // GET: /Cart/AddToCartForm
-    public async Task<IActionResult> AddToCartForm(int productId)
-    {
-        var product = await _productService.GetProductByIdAsync(productId);
-        if (product == null)
+        public CartController(CartService cartService)
         {
-            return NotFound();
+            _cartService = cartService;
         }
 
-        return View(new AddToCartViewModel { ProductId = productId });
-    }
-
-    // POST: /Cart/AddToCart
-    [HttpPost]
-    public async Task<IActionResult> AddToCart(AddToCartViewModel model)
-    {
-        if (!ModelState.IsValid)
+        public async Task<IActionResult> ViewCart()
         {
-            return View("AddToCartForm", model);
-        }
-
-        try
-        {
-            // Supponiamo che l'ID utente venga ottenuto dal contesto di autenticazione, qui hardcoded per semplicità
-            var userId = "test-user-id";
-
-            // Recupera o crea un carrello per l'utente
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var cart = await _cartService.GetCartByUserIdAsync(userId);
-            if (cart == null)
-            {
-                cart = new Cart { UserId = userId };
-                await _cartService.CreateCartAsync(cart);
-            }
-
-            // Aggiungi il prodotto al carrello
-            await _cartService.AddToCartAsync(cart.Id, model.ProductId, model.Quantity);
-
-            // Reindirizza alla vista del carrello
-            return RedirectToAction("ViewCart");
+            return View(cart);
         }
-        catch (Exception ex)
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int productId, int quantity = 1)
         {
-            ModelState.AddModelError(string.Empty, "Failed to add product to cart. Please try again later.");
-            return View("AddToCartForm", model);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _cartService.AddToCartAsync(userId, productId, quantity);
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCart(int cartItemId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _cartService.RemoveFromCartAsync(userId, cartItemId);
+            return RedirectToAction("ViewCart");
         }
     }
 }
