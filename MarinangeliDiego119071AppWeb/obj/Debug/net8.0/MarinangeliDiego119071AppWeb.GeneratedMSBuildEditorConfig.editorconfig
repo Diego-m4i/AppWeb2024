@@ -18,6 +18,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\marin\RiderProjects\AppWeb2024\MarinangeliDiego119071AppWeb
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/marin/RiderProjects/AppWeb2024/MarinangeliDiego119071AppWeb/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/marin/RiderProjects/AppWeb2024/MarinangeliDiego119071AppWeb/Views/Cart/ViewCart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxWaWV3Q2FydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -36,6 +40,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/marin/RiderProjects/AppWeb2024/MarinangeliDiego119071AppWeb/Views/Product/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/marin/RiderProjects/AppWeb2024/MarinangeliDiego119071AppWeb/Views/Profile/EditProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxFZGl0UHJvZmlsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/marin/RiderProjects/AppWeb2024/MarinangeliDiego119071AppWeb/Views/Profile/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/marin/RiderProjects/AppWeb2024/MarinangeliDiego119071AppWeb/Views/Shared/Error.cshtml]

@@ -1,8 +1,14 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
 using WebApp.data;
+using Microsoft.AspNetCore.Identity;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,13 +16,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDb>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Altri servizi necessari
-builder.Services.AddScoped<CartService>();
-builder.Services.AddScoped<ProductService>();
+// Configurazione Identity
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
+})
+    .AddEntityFrameworkStores<AppDb>()
+    .AddDefaultTokenProviders();
 
 // Configurazione dei servizi
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddScoped<CartService>();
+builder.Services.AddScoped<ProductService>();
 
 // Configurazione di autenticazione e autorizzazione
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -27,7 +42,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.SlidingExpiration = true;
         options.LoginPath = "/Account/Login";
         options.LogoutPath = "/Account/Logout";
-        options.ReturnUrlParameter = "";
+        options.ReturnUrlParameter = "returnUrl";
     });
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -37,30 +52,20 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
-    options.ReturnUrlParameter = "";
+    options.ReturnUrlParameter = "returnUrl";
 });
 
 builder.Services.AddAuthorization();
 builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.User.AllowedUserNameCharacters += " ";
-    options.User.RequireUniqueEmail = true;
-    options.SignIn.RequireConfirmedEmail = false;
-    options.SignIn.RequireConfirmedPhoneNumber = false;
-    options.SignIn.RequireConfirmedAccount = false;
-    options.Lockout.AllowedForNewUsers = true;
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 8;
-    options.Password.RequiredUniqueChars = 1;
-});
+// Aggiunta della protezione dei dati
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "keys")))
+    .ProtectKeysWithDpapi(); // Esempio di protezione con DPAPI
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -88,6 +93,10 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "cart",
         pattern: "{controller=Cart}/{action=ViewCart}/{id?}");
+
+    endpoints.MapControllerRoute(
+        name: "account",
+        pattern: "{controller=Account}/{action=Login}/{id?}");
 });
 
 app.Run();
