@@ -5,9 +5,8 @@ namespace Models
 {
     public class Cart
     {
-        public Guid Id { get; set; }
-        public string UserId { get; set; }
-        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public string Id { get; set; }
         public string Status { get; set; }
+        public List<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }
