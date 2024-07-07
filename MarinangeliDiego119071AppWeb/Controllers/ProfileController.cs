@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 using System.Threading.Tasks;
+using Models;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers

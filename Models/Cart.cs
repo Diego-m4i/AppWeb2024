@@ -8,5 +8,6 @@ namespace Models
         public string Id { get; set; }
         public string Status { get; set; }
         public List<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public int CartTotal { get; set; }
     }
 }

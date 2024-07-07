@@ -9,8 +9,20 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\favicon.ico",
-      "PackagePath": "staticwebassets\\favicon.ico"
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\home.png",
+      "PackagePath": "staticwebassets\\images\\home.png"
+    },
+    {
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\shopping-cart.png",
+      "PackagePath": "staticwebassets\\images\\shopping-cart.png"
+    },
+    {
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\user.png",
+      "PackagePath": "staticwebassets\\images\\user.png"
     },
     {
       "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\js\\site.js",
@@ -243,6 +255,10 @@
     {
       "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\logo.png",
+      "PackagePath": "staticwebassets\\logo.png"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MarinangeliDiego119071AppWeb.Microsoft.AspNetCore.StaticWebAssets.props",

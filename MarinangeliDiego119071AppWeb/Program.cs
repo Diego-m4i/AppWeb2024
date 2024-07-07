@@ -1,102 +1,92 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using WebApp.data;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-using Services;
+using WebApp.data;
+using System.Threading.Tasks;
+using System;
+using Models;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Configura il DbContext
-builder.Services.AddDbContext<AppDb>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Configurazione Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+public class Program
 {
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 8;
-    options.Password.RequiredUniqueChars = 1;
-})
-    .AddEntityFrameworkStores<AppDb>()
-    .AddDefaultTokenProviders();
-
-// Configurazione dei servizi
-builder.Services.AddScoped<CartService>();
-builder.Services.AddScoped<ProductService>();
-
-// Configurazione di autenticazione e autorizzazione
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
+    public static async Task Main(string[] args)
     {
-        options.Cookie.Name = "WebAppVetrinaCookie";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-        options.SlidingExpiration = true;
-        options.LoginPath = "/Account/Login";
-        options.LogoutPath = "/Account/Logout";
-        options.ReturnUrlParameter = "returnUrl";
-    });
+        var host = CreateHostBuilder(args).Build();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.Name = "WebAppVetrinaCookie";
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(15);
-    options.SlidingExpiration = true;
-    options.LoginPath = "/Account/Login";
-    options.LogoutPath = "/Account/Logout";
-    options.ReturnUrlParameter = "returnUrl";
-});
+        using (var scope = host.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            try
+            {
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                await SeedUsersAndRoles(userManager, roleManager);
+            }
+            catch (Exception ex)
+            {
+                // Log the error (uncomment ex variable name and write a log.)
+                Console.WriteLine(ex.Message);
+            }
+        }
 
-builder.Services.AddAuthorization();
-builder.Services.AddSession();
-builder.Services.AddHttpContextAccessor();
+        host.Run();
+    }
 
-// Aggiunta della protezione dei dati
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "keys")))
-    .ProtectKeysWithDpapi(); // Esempio di protezione con DPAPI
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+    private static async Task SeedUsersAndRoles(UserManager<ApplicationUser> userManager,
+        RoleManager<IdentityRole> roleManager)
+    {
+        var roles = new[] { "Admin", "User" };
 
-var app = builder.Build();
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole(role));
+            }
+        }
 
-// Gestione delle eccezioni e altre configurazioni
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+        var adminUser = new ApplicationUser
+        {
+            UserName = "admin@example.com",
+            Email = "admin@example.com",
+            EmailConfirmed = true
+        };
+
+        if (userManager.Users.All(u => u.UserName != adminUser.UserName))
+        {
+            var user = await userManager.FindByEmailAsync(adminUser.Email);
+            if (user == null)
+            {
+                var result = await userManager.CreateAsync(adminUser, "Admin@123");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                }
+            }
+        }
+
+        var regularUser = new ApplicationUser
+        {
+            UserName = "user@example.com",
+            Email = "user@example.com",
+            EmailConfirmed = true
+        };
+
+        if (userManager.Users.All(u => u.UserName != regularUser.UserName))
+        {
+            var user = await userManager.FindByEmailAsync(regularUser.Email);
+            if (user == null)
+            {
+                var result = await userManager.CreateAsync(regularUser, "User@123");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(regularUser, "User");
+                }
+            }
+        }
+    }
 }
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
-app.UseSession();
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapRazorPages();
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-
-    endpoints.MapControllerRoute(
-        name: "cart",
-        pattern: "{controller=Cart}/{action=ViewCart}/{id?}");
-
-    endpoints.MapControllerRoute(
-        name: "account",
-        pattern: "{controller=Account}/{action=Login}/{id?}");
-});
-
-app.Run();

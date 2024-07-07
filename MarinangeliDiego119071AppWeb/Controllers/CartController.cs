@@ -43,5 +43,22 @@ namespace WebApp.Controllers
             await _cartService.RemoveFromCartAsync(cartId, cartItemId);
             return RedirectToAction("ViewCart");
         }
+    
+        [HttpPost]
+        public IActionResult UpdateQuantity(int cartItemId, int quantity, string operation)
+        {
+            if (operation == "increment")
+            {
+                quantity++;
+            }
+            else if (operation == "decrement" && quantity > 1)
+            {
+                quantity--;
+            }
+
+            _cartService.UpdateCartItemQuantity(cartItemId, quantity);
+            return RedirectToAction(nameof(ViewCart));
+        }
+       
     }
 }

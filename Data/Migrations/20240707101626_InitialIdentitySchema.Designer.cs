@@ -12,8 +12,8 @@ using WebApp.data;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDb))]
-    [Migration("20240706151905_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240707101626_InitialIdentitySchema")]
+    partial class InitialIdentitySchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -264,6 +264,9 @@ namespace Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CartTotal")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()

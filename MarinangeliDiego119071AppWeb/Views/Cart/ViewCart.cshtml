@@ -1,47 +1,73 @@
 ﻿@model Models.Cart
 
 @{
-    ViewData["Title"] = "Your Cart";
+ViewData["Title"] = "Your Cart";
 }
 
 <h2>Your Cart</h2>
 
 @if (Model?.CartItems.Any() != true)
 {
-    <p>Your cart is empty.</p>
+<p>Your cart is empty.</p>
 }
 else
 {
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Product</th>
-            <th>Image</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model.CartItems)
-        {
-            <tr>
-                <td>@item.Product.Name</td>
-                <td>
-                    <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 100px; height: auto;" />
-                </td>
-                <td>@item.Quantity</td>
-                <td>@item.Price.ToString("C")</td>
-                <td>@(item.Quantity * item.Price).ToString("C")</td>
-                <td>
-                    <form asp-action="RemoveFromCart" method="post">
-                        <input type="hidden" name="cartItemId" value="@item.Id" />
-                        <button type="submit" class="btn btn-danger">Remove</button>
-                    </form>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Image</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.CartItems)
+    {
+    <tr>
+        <td>@item.Product.Name</td>
+        <td>
+            <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 100px; height: auto;" />
+        </td>
+        <td>
+            <form asp-action="UpdateQuantity" method="post" class="d-inline">
+                <input type="hidden" name="cartItemId" value="@item.Id" />
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <button type="submit" name="operation" value="decrement" class="btn btn-outline-secondary btn-sm">-</button>
+                    </div>
+                    <input type="text" name="quantity" value="@item.Quantity" readonly class="form-control text-center" style="width: 50px;" />
+                    <div class="input-group-append">
+                        <button type="submit" name="operation" value="increment" class="btn btn-outline-secondary btn-sm">+</button>
+                    </div>
+                </div>
+            </form>
+        </td>
+        <td>@item.Price</td>
+        <td>@(item.Quantity * item.Price)</td>
+        <td>
+            <form asp-action="RemoveFromCart" method="post" class="d-inline">
+                <input type="hidden" name="cartItemId" value="@item.Id" />
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </td>
+    </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="4" class="text-right"><strong>Total:</strong></td>
+        <td><strong>@Model.CartTotal</strong></td>
+        <td></td>
+        <td>
+            <form asp-action="Checkout" method="post">
+                <button type="submit" class="btn btn-success">Checkout</button>
+            </form>
+        </td>
+    </tr>
+    </tfoot>
+</table>
 }

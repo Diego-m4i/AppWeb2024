@@ -13,10 +13,9 @@ namespace Services
         private readonly AppDb _dbContext;
         private readonly IDataProtector _protector;
 
-        public CartService(AppDb dbContext, IDataProtectionProvider dataProtectionProvider)
+        public CartService(AppDb dbContext)
         {
             _dbContext = dbContext;
-            /*_protector = dataProtectionProvider.CreateProtector("cart-service-purpose");*/
         }
 
         public async Task<Cart> GetCartByIdAsync(string cartId)
@@ -25,7 +24,7 @@ namespace Services
             return await _dbContext.Carts
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
-                .FirstOrDefaultAsync(c => c.Id == /*encrypted*/cartId && c.Status == "Open");
+                .FirstOrDefaultAsync(c => c.Id == cartId && c.Status == "Open");
         }
 
         public async Task AddToCartAsync(string cartId, int productId, int quantity)
@@ -34,7 +33,7 @@ namespace Services
 
             var cart = await _dbContext.Carts
                 .Include(c => c.CartItems)
-                .FirstOrDefaultAsync(c => c.Id == /*encrypted*/cartId);
+                .FirstOrDefaultAsync(c => c.Id == cartId);
 
             if (cart == null)
             {
@@ -78,6 +77,15 @@ namespace Services
                     _dbContext.Carts.Remove(cart);
                 }
                 await _dbContext.SaveChangesAsync();
+            }
+        }
+        public void UpdateCartItemQuantity(int cartItemId, int quantity)
+        {
+            var cartItem = _dbContext.CartItems.Find(cartItemId);
+            if (cartItem != null)
+            {
+                cartItem.Quantity = quantity;
+                _dbContext.SaveChanges();
             }
         }
     }
