@@ -20,13 +20,13 @@ namespace Services
 
         public async Task<Cart> GetCartByIdAsync(string cartId)
         {
-            /*var encryptedCartId = _protector.Protect(cartId); // Cripta cartId se necessari*/
             return await _dbContext.Carts
                 .Include(c => c.CartItems)
                 .ThenInclude(ci => ci.Product)
                 .FirstOrDefaultAsync(c => c.Id == cartId && c.Status == "Open");
         }
 
+        
         public async Task AddToCartAsync(string cartId, int productId, int quantity)
         {
             /*var encryptedCartId = _protector.Protect(cartId); // Cripta il cartId*/
@@ -88,5 +88,27 @@ namespace Services
                 _dbContext.SaveChanges();
             }
         }
+        public async Task<decimal> CalculateCartTotalAsync(string cartId)
+        {
+            var cart = await GetCartByIdAsync(cartId);
+            if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
+            {
+                return 0;
+            }
+
+            decimal total = cart.CartItems.Sum(ci => ci.Quantity * ci.Price);
+            return total;
+        }
+
+        public async Task ClearCartAsync(string cartId)
+        {
+            var cart = await GetCartByIdAsync(cartId);
+            if (cart != null)
+            {
+                _dbContext.Carts.Remove(cart);
+                await _dbContext.SaveChangesAsync();
+            }
+        }
+    
     }
 }

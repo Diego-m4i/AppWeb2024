@@ -1,11 +1,6 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-using WebApp.data;
-using System.Threading.Tasks;
-using System;
 using Models;
+using WebApp.data;
 
 public class Program
 {
@@ -20,6 +15,8 @@ public class Program
             {
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var dbContext = services.GetRequiredService<AppDb>(); // Ottieni il contesto del database
+
                 await SeedUsersAndRoles(userManager, roleManager);
             }
             catch (Exception ex)

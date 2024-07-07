@@ -98,7 +98,7 @@ public class Startup
             
             endpoints.MapControllerRoute(
                 name: "checkout",
-                pattern: "Cart/Checkout",
+                pattern: "Cart/CheckoutConfirmation",
                 defaults: new { controller = "Cart", action = "Checkout" });
 
         });

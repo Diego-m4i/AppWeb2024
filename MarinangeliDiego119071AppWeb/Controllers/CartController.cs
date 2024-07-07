@@ -59,6 +59,31 @@ namespace WebApp.Controllers
             _cartService.UpdateCartItemQuantity(cartItemId, quantity);
             return RedirectToAction(nameof(ViewCart));
         }
-       
+        public async Task<IActionResult> Checkout()
+        {
+            var cartId = "get_your_cart_id_here"; // Sostituisci con il metodo corretto per ottenere l'ID del carrello
+            var cart = await _cartService.GetCartByIdAsync(cartId);
+
+            if (cart == null || !cart.CartItems.Any())
+            {
+                return View("EmptyCart");
+            }
+
+            return View(cart);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Checkout(Cart cart)
+        {
+
+            return View("CheckoutConfirmation", cart);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ProcessPayment(string cardNumber, string expiryDate, string cvv)
+        {
+            return View("CheckoutConfirmation");
+        }
+        
     }
 }
