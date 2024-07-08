@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Identity;
 using Models;
-using WebApp.data;
 
 public class Program
 {
@@ -15,14 +14,11 @@ public class Program
             {
                 var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                var dbContext = services.GetRequiredService<AppDb>(); // Ottieni il contesto del database
-
                 await SeedUsersAndRoles(userManager, roleManager);
             }
             catch (Exception ex)
             {
-                // Log the error (uncomment ex variable name and write a log.)
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"An error occurred seeding the DB: {ex.Message}");
             }
         }
 
@@ -33,8 +29,7 @@ public class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
 
-    private static async Task SeedUsersAndRoles(UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager)
+    private static async Task SeedUsersAndRoles(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
         var roles = new[] { "Admin", "User" };
 
@@ -50,7 +45,9 @@ public class Program
         {
             UserName = "admin@example.com",
             Email = "admin@example.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            FirstName = "Admin",
+            LastName = "User"
         };
 
         if (userManager.Users.All(u => u.UserName != adminUser.UserName))
@@ -70,7 +67,9 @@ public class Program
         {
             UserName = "user@example.com",
             Email = "user@example.com",
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            FirstName = "Regular",
+            LastName = "User"
         };
 
         if (userManager.Users.All(u => u.UserName != regularUser.UserName))

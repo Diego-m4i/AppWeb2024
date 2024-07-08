@@ -1,18 +1,17 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.IO;
-using WebApp.data;
-using Services;
+using Microsoft.IdentityModel.Tokens;
 using Models;
+using Services;
+using WebApp.data;
 
 public class Startup
 {
@@ -51,6 +50,28 @@ public class Startup
             .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), "keys")))
             .ProtectKeysWithDpapi();
 
+        // Configurazione JWT
+        var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidIssuer = Configuration["Jwt:Issuer"],
+                ValidAudience = Configuration["Jwt:Audience"]
+            };
+        });
+
         services.AddControllersWithViews();
         services.AddRazorPages();
 
@@ -82,7 +103,9 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllers();
             endpoints.MapRazorPages();
+
             endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -92,15 +115,14 @@ public class Startup
                 pattern: "{controller=Cart}/{action=ViewCart}/{id?}");
 
             endpoints.MapControllerRoute(
-                name: "account",
-                pattern: "Account",
-                defaults: new { controller = "Account", action = "Index" });
-            
+                name: "profile",
+                pattern: "Profile",
+                defaults: new { controller = "Profile", action = "GetProfile" });
+
             endpoints.MapControllerRoute(
                 name: "checkout",
                 pattern: "Cart/CheckoutConfirmation",
                 defaults: new { controller = "Cart", action = "Checkout" });
-
         });
     }
 }
