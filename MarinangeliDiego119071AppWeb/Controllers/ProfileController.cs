@@ -31,7 +31,7 @@
                     return NotFound();
                 }
 
-                return Ok(new { user.UserName, user.Email });
+                return Ok(new { user.Email, user.PasswordHash });
             }
         }
     }
