@@ -12,7 +12,7 @@ using WebApp.data;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDb))]
-    [Migration("20240708204154_InitialIdentitySchema")]
+    [Migration("20240708224051_InitialIdentitySchema")]
     partial class InitialIdentitySchema
     {
         /// <inheritdoc />

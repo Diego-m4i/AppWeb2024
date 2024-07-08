@@ -34,16 +34,16 @@ public class Startup
 
         // Configurazione di Identity
         services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-        {
-            options.Password.RequireDigit = true;
-            options.Password.RequireLowercase = true;
-            options.Password.RequireNonAlphanumeric = true;
-            options.Password.RequireUppercase = true;
-            options.Password.RequiredLength = 8;
-            options.Password.RequiredUniqueChars = 1;
-        })
-        .AddEntityFrameworkStores<AppDb>()
-        .AddDefaultTokenProviders();
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1;
+            })
+            .AddEntityFrameworkStores<AppDb>()
+            .AddDefaultTokenProviders();
 
         // Configurazione della protezione dei dati
         services.AddDataProtection()
@@ -53,24 +53,24 @@ public class Startup
         // Configurazione JWT
         var key = Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]);
         services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-            options.RequireHttpsMetadata = false;
-            options.SaveToken = true;
-            options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidIssuer = Configuration["Jwt:Issuer"],
-                ValidAudience = Configuration["Jwt:Audience"]
-            };
-        });
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"]
+                };
+            });
 
         services.AddControllersWithViews();
         services.AddRazorPages();
@@ -116,7 +116,7 @@ public class Startup
 
             endpoints.MapControllerRoute(
                 name: "profile",
-                pattern: "Profile",
+                pattern: "api/Profile",
                 defaults: new { controller = "Profile", action = "GetProfile" });
 
             endpoints.MapControllerRoute(

@@ -1,55 +1,74 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.AspNetCore.Mvc;
+using Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Models;
-[Route("api/[controller]")]
-[ApiController]
-public class AccountController : ControllerBase
+using System.Threading.Tasks;
+using WebApp.ViewModels;
+
+namespace WebApp.Controllers
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly IConfiguration _configuration;
-
-    public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : Controller
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _configuration = configuration;
-    }
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _configuration;
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginModel model)
-    {
-        var user = await _userManager.FindByNameAsync(model.Username);
-        if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
         {
-            var token = GenerateJwtToken(user);
-            return Ok(new { Token = token });
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _configuration = configuration;
         }
 
-        return Unauthorized();
-    }
-
-    private string GenerateJwtToken(ApplicationUser user)
-    {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
-        var tokenDescriptor = new SecurityTokenDescriptor
+        [HttpGet("Login")]
+        public IActionResult Login()
         {
-            Subject = new ClaimsIdentity(new Claim[]
+            return View();
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            }),
-            Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-            Issuer = _configuration["Jwt:Issuer"],
-            Audience = _configuration["Jwt:Audience"]
-        };
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+                return View(viewModel);
+            }
+
+            var user = await _userManager.FindByNameAsync(viewModel.Username);
+            if (user != null && await _userManager.CheckPasswordAsync(user, viewModel.Password))
+            {
+                var token = GenerateJwtToken(user);
+                return Ok(new { Token = token });
+            }
+
+            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            return View(viewModel);
+        }
+
+        private string GenerateJwtToken(ApplicationUser user)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id)
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _configuration["Jwt:Issuer"],
+                Audience = _configuration["Jwt:Audience"]
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
     }
 }

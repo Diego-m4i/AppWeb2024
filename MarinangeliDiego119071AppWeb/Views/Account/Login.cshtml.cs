@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace MarinangeliDiego119071AppWeb.Views.Profile;
+namespace MarinangeliDiego119071AppWeb.Views.Account;
 
-public class EditProfile : PageModel
+public class Login : PageModel
 {
     public void OnGet()
     {

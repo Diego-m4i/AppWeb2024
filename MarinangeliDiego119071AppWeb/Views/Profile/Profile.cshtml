@@ -1,26 +1,42 @@
-﻿@model Models.ApplicationUser
-
-@{
-ViewData["Title"] = "User Profile";
+﻿@{
+    ViewData["Title"] = "Profile";
 }
 
 <h2>User Profile</h2>
-
-<div>
-    <h4>@Model.FirstName @Model.LastName</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">Username</dt>
-        <dd class="col-sm-10">@Model.UserName</dd>
-
-        <dt class="col-sm-2">Email</dt>
-        <dd class="col-sm-10">@Model.Email</dd>
-
-        <dt class="col-sm-2">Phone Number</dt>
-        <dd class="col-sm-10">@Model.PhoneNumber</dd>
-    </dl>
+<div id="profileInfo">
+    <!-- Le informazioni del profilo saranno visualizzate qui -->
 </div>
 
-<div>
-    <a asp-action="EditProfile">Edit Profile</a>
-</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const token = localStorage.getItem('jwtToken');
+    if (!token) {
+        window.location.href = '/Account/Login'; // Reindirizza alla pagina di login se il token non è presente
+        return;
+    }
+
+    const url = '/api/Profile';
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const profileInfoDiv = document.getElementById('profileInfo');
+        profileInfoDiv.innerHTML = `<p>Email: ${data.email}</p><p>Password Hash: ${data.passwordHash}</p>`;
+    })
+    .catch(error => {
+        console.error('There was an error with the fetch operation:', error);
+        window.location.href = '/Account/Login'; // Reindirizza alla pagina di login in caso di errore
+    });
+});
+</script>

@@ -1,37 +1,35 @@
-﻿    using System.Security.Claims;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.DataProtection;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
-    using Models;
-    using WebApp.ViewModels;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Models;
 
-    namespace WebApp.Controllers
+namespace WebApp.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class ProfileController : ControllerBase
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        [Authorize]
-        public class ProfileController : ControllerBase
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ProfileController(UserManager<ApplicationUser> userManager)
         {
-            private readonly UserManager<ApplicationUser> _userManager;
+            _userManager = userManager;
+        }
 
-            public ProfileController(UserManager<ApplicationUser> userManager)
+        [HttpGet]
+        public async Task<IActionResult> GetProfile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
             {
-                _userManager = userManager;
+                return NotFound();
             }
 
-            [HttpGet]
-            public async Task<IActionResult> GetProfile()
-            {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var user = await _userManager.FindByIdAsync(userId);
-                if (user == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(new { user.Email, user.PasswordHash });
-            }
+            return Ok(new { user.Email, user.PasswordHash });
         }
     }
+}
