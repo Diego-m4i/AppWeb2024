@@ -38,6 +38,11 @@
       <_ContentIncludedByDefault Remove="Views\Order\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Order\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Product\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Product\Index.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Views\Product\Details.cshtml" />
     </ItemGroup>
 
 </Project>

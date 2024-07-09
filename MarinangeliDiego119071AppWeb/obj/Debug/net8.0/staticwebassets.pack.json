@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\add-product.png",
+      "PackagePath": "staticwebassets\\images\\add-product.png"
+    },
+    {
       "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\home.png",
       "PackagePath": "staticwebassets\\images\\home.png"
     },

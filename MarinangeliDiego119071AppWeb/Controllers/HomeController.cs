@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using MarinangeliDiego119071AppWeb.Models;
 using Models;
 using Services;
-using WebApp.ViewModels;
 using System.Collections.Generic;
+using WebApp.ViewModels;
 
 namespace AppWeb.Controllers
 {
@@ -25,6 +25,16 @@ namespace AppWeb.Controllers
         {
             var products = await _productService.GetProductsAsync();
             return View(products);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         public IActionResult Privacy()
@@ -63,6 +73,5 @@ namespace AppWeb.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
-}
+    }
 }

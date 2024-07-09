@@ -1,0 +1,50 @@
+﻿    @model Models.Product
+
+    @{
+        ViewData["Title"] = @Model.Name;
+    }
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">@Model.Name</h3>
+                        <p class="card-text">@Model.Description</p>
+                        <p class="card-text"><strong>Price:</strong> @Model.Price.ToString("C")</p>
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Back to Home</a>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex align-items-center">
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded shadow-sm" />
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 10px;
+        }
+        .card-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .card-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    </style>

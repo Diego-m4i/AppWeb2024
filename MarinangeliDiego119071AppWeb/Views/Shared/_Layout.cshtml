@@ -10,20 +10,25 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-light bg-custom"> 
+    <nav class="navbar navbar-expand-sm navbar-light bg-custom">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/images/logo.png" alt="Logo" style="height: 140px;" />
             </a>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/images/Home.png" alt="Logo" style="height: 40px;" />
+            </a>
+                <a href="@Url.Action("AddProduct", "Home")" class="nav-link text-dark">
+                    <img src="~/images/add-product.png" alt="Add Product" style="height: 50px;" />
+                </a>
+
+            <!-- Navbar Toggler per dispositivi mobili -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                            <img src="~/images/home.png" alt="Home" style="height: 40px;" />
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="ViewCart">
                             <img src="~/images/shopping-cart.png" alt="Cart" style="height: 40px;" />
@@ -39,6 +44,7 @@
         </div>
     </nav>
 </header>
+
 <div class="container">
     <main role="main" class="pb-3">
         @RenderBody()

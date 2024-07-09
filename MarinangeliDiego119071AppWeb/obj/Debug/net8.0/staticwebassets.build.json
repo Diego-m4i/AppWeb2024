@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nR0Z5sEfFTt9n+ZFloKjI1NaGcgC/1d6biC4A/PZjXo=",
+  "Hash": "D5fnFIDJ0KLtn1KE06Ax0drcM+RpSAKYORwoRYPXmvQ=",
   "Source": "MarinangeliDiego119071AppWeb",
   "BasePath": "_content/MarinangeliDiego119071AppWeb",
   "Mode": "Default",
@@ -1212,6 +1212,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\add-product.png",
+      "SourceId": "MarinangeliDiego119071AppWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\",
+      "BasePath": "_content/MarinangeliDiego119071AppWeb",
+      "RelativePath": "images/add-product.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\add-product.png"
     },
     {
       "Identity": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\images\\home.png",
