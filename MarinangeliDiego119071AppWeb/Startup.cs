@@ -115,9 +115,9 @@ public class Startup
                 pattern: "{controller=Cart}/{action=ViewCart}/{id?}");
 
             endpoints.MapControllerRoute(
-                name: "profile",
-                pattern: "api/Profile",
-                defaults: new { controller = "Profile", action = "GetProfile" });
+                name: "account",
+                pattern: "api/Account",
+                defaults: new { controller = "Account", action = "Login" });
 
             endpoints.MapControllerRoute(
                 name: "checkout",
