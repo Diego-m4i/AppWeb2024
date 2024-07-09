@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MarinangeliDiego119071AppWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+45af2c57481fb55d6a2e6578a353e7a56aacfa3f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8579a14bd41a09fc06f1a79f22172e87592de7e3")]
 [assembly: System.Reflection.AssemblyProductAttribute("MarinangeliDiego119071AppWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MarinangeliDiego119071AppWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
