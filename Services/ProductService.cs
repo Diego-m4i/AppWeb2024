@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApp.data;
 using Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Services
@@ -22,6 +24,20 @@ namespace Services
         public async Task<Product> GetProductByIdAsync(int id)
         {
             return await _dbContext.Products.FindAsync(id);
+        }
+
+        public async Task<List<Product>> GetProductsByNameAsync(string name)
+        {
+            return await _dbContext.Products
+                .Where(p => p.Name.Contains(name))
+                .ToListAsync();
+        }
+
+        public async Task<List<Product>> GetProductsByCategoryAsync(string category)
+        {
+            return await _dbContext.Products
+                .Where(p => p.Category.Contains(category))
+                .ToListAsync();
         }
 
         public async Task AddProductAsync(Product product)

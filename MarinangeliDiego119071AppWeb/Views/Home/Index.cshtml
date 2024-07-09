@@ -2,9 +2,41 @@
 
 @{
 ViewData["Title"] = "Home Page";
+var categories = new List<string> { "PC", "Periferiche", "Accessori", "Arredamento", "Smartphone" }; // Lista delle categorie
 }
 
 <div class="container mt-4">
+    <!-- Form di ricerca -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <form method="get" action="@Url.Action("Search", "Home")" class="form-inline">
+                <input type="text" name="searchTerm" class="form-control mr-2" placeholder="Search for a product" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Categorie cliccabili -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h3>Filtra per Categoria:</h3>
+            <ul class="list-inline">
+                @foreach (var category in categories)
+                {
+                <li class="list-inline-item">
+                    @if (!string.IsNullOrEmpty(ViewBag.SelectedCategory) && ViewBag.SelectedCategory == category)
+                    {
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">@category <i class="fas fa-times ml-1"></i></a>
+                    }
+                    else
+                    {
+                    <a href="@Url.Action("Category", "Home", new { category = category })" class="btn btn-outline-secondary">@category</a>
+                    }
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
 
     <div class="row">
         @foreach (var product in Model)
@@ -21,12 +53,11 @@ ViewData["Title"] = "Home Page";
                         <input type="hidden" name="productId" value="@product.Id" />
                         <input type="hidden" name="quantity" value="1" />
                         <button type="submit" class="btn btn-primary mt-auto">Add to Cart</button>
-                        
                     </form>
-                    
                 </div>
             </div>
         </div>
         }
     </div>
 </div>
+

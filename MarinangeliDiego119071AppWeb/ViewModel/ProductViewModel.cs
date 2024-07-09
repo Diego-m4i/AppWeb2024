@@ -17,5 +17,7 @@ namespace WebApp.ViewModels
         [Required(ErrorMessage = "Product Image URL is required")]
         [Url(ErrorMessage = "Invalid URL format")]
         public string ImageUrl { get; set; }
+        
+        public string Category { get; set; } // Nuova proprietà per la categoria
     }
 }

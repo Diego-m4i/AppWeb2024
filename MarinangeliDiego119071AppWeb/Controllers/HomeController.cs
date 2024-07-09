@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using MarinangeliDiego119071AppWeb.Models;
 using Models;
 using Services;
 using System.Collections.Generic;
+using MarinangeliDiego119071AppWeb.Models;
 using WebApp.ViewModels;
 
 namespace AppWeb.Controllers
@@ -37,6 +37,24 @@ namespace AppWeb.Controllers
             return View(product);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var products = await _productService.GetProductsByNameAsync(searchTerm);
+            return View("Index", products);
+        }
+
+        public async Task<IActionResult> Category(string category)
+        {
+            var products = await _productService.GetProductsByCategoryAsync(category);
+            return View("Index", products); 
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -57,7 +75,8 @@ namespace AppWeb.Controllers
                     Name = model.Name,
                     Description = model.Description,
                     Price = model.Price,
-                    ImageUrl = model.ImageUrl
+                    ImageUrl = model.ImageUrl,
+                    Category = model.Category 
                 };
 
                 await _productService.AddProductAsync(newProduct);
