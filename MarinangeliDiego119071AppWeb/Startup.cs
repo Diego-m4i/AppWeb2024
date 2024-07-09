@@ -68,8 +68,9 @@ public class Startup
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidIssuer = Configuration["Jwt:Issuer"],
-                    ValidAudience = Configuration["Jwt:Audience"]
+                    ValidAudience = Configuration["Jwt:Audience"],
                 };
+            
             });
 
         services.AddControllersWithViews();

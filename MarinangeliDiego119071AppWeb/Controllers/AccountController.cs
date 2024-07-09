@@ -19,7 +19,8 @@ namespace WebApp.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -37,18 +38,18 @@ namespace WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(viewModel);
+                return BadRequest(ModelState);
             }
 
             var user = await _userManager.FindByNameAsync(viewModel.Username);
-            if (user != null && await _userManager.CheckPasswordAsync(user, viewModel.Password))
+            if (user == null || !await _userManager.CheckPasswordAsync(user, viewModel.Password))
             {
-                var token = GenerateJwtToken(user);
-                return Ok(new { Token = token });
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return BadRequest(ModelState);
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return View(viewModel);
+            var token = GenerateJwtToken(user);
+            return Ok(new { Token = token });
         }
 
         private string GenerateJwtToken(ApplicationUser user)
@@ -63,7 +64,8 @@ namespace WebApp.Controllers
                     new Claim(ClaimTypes.NameIdentifier, user.Id)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                SigningCredentials =
+                    new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = _configuration["Jwt:Issuer"],
                 Audience = _configuration["Jwt:Audience"]
             };

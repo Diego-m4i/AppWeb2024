@@ -19,9 +19,9 @@
             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/images/Home.png" alt="Logo" style="height: 40px;" />
             </a>
-                <a href="@Url.Action("AddProduct", "Home")" class="nav-link text-dark">
-                    <img src="~/images/add-product.png" alt="Add Product" style="height: 50px;" />
-                </a>
+            <a href="@Url.Action("AddProduct", "Home")" class="nav-link text-dark">
+                <img src="~/images/add-product.png" alt="Add Product" style="height: 50px;" />
+            </a>
 
             <!-- Navbar Toggler per dispositivi mobili -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,9 +36,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">
+                        <a class="nav-link text-dark" id="profile-link" href="/Account/Profile" style="display:none;">
+                            <i class="fas fa-user"></i> <span id="username"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="login-link" asp-area="" asp-controller="Account" asp-action="Login">
                             <img src="~/images/user.png" alt="User" style="height: 40px;" />
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="logout-link" href="#" style="display:none;">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -60,7 +68,27 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/fetchData.js" asp-append-version="true"></script>
 @RenderSection("Scripts", required: false)
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+
+        if (token && username) {
+            document.getElementById('profile-link').style.display = 'inline';
+            document.getElementById('login-link').style.display = 'none';
+            document.getElementById('logout-link').style.display = 'inline';
+            document.getElementById('username').textContent = username;
+        }
+    });
+
+    document.getElementById('logout-link').addEventListener('click', function () {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
+        window.location.href = '/';
+    });
+</script>
 </body>
 </html>

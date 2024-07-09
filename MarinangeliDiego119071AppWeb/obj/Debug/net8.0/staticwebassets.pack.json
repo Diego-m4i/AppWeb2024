@@ -29,6 +29,14 @@
       "PackagePath": "staticwebassets\\images\\user.png"
     },
     {
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\js\\fetchData.js",
+      "PackagePath": "staticwebassets\\js\\fetchData.js"
+    },
+    {
+      "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\js\\login.js",
+      "PackagePath": "staticwebassets\\js\\login.js"
+    },
+    {
       "Id": "C:\\Users\\marin\\RiderProjects\\AppWeb2024\\MarinangeliDiego119071AppWeb\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
